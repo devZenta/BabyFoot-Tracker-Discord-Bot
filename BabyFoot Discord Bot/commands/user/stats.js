@@ -89,22 +89,56 @@ module.exports = {
 
             } catch (error) {
 
-                // Rajouter des conditions pour les erreurs
+                if (error.message === 'Cannot send messages to this user') {
+                    
+                    const userStats = await Player.findOne({ where: { id: playerStats } });
 
-                console.error('Error sending DM:', error);
+                    const usernamePlayer = userStats.get('username');
+                    const eloPlayer = userStats.get('elo');
+                    const winPlayer = userStats.get('wins');
+                    const loosePlayer = userStats.get('losses');
+                    const gamesPlayed = userStats.get('games');
+                    const winratePlayer = userStats.winrate;
+                    const goalsScored = userStats.get('goalsScored');
+                    const goalsConceded = userStats.get('goalsConceded');
+                    const goalRatio = userStats.goalRatio;
 
-                const codeBlockErrorMessage = codeBlock(`⚠️ Error : [ ${error.message} ]`);
+                    const codeBlockStatsMessage = codeBlock(`Username: ${usernamePlayer}\nElo: ${eloPlayer}\nWin Rate: ${winratePlayer}%\nWins: ${winPlayer}\nLosses: ${loosePlayer}\nGames played: ${gamesPlayed}\nGoal Ratio: ${goalRatio}\nGoals scored: ${goalsScored}\nGoals conceded: ${goalsConceded}`);
 
-                const ErrorReplyEmbed = new EmbedBuilder()
+                    const dmErrorMessage = codeBlock(`⚠️ Cannot send you a private message. Please check your privacy settings.`);
+
+                    const dmErrorEmbed = new EmbedBuilder()
+                    .setColor("Orange")
+                    .setAuthor({ name: 'BabyFoot Tracker', iconURL: process.env.LOGO_URL, url: process.env.GITHUB_URL })
+                    .setDescription(`${dmErrorMessage}\n\n🏆 **${usernamePlayer} Statistics** 🏆\n${codeBlockStatsMessage}`)
+                    .setTimestamp()
+                    .setFooter({ text: 'Created by .zenta.' });
+
+                    await interaction.editReply({
+                        content: `${user}`,
+                        embeds: [dmErrorEmbed],
+                        components: [],
+                        ephemeral: true
+                    });
+
+                    return;
+
+                }
+
+                console.error(error);
+
+                const codeBlockErrorCommandMessage = codeBlock(`⚠️ Error : [ ${error.message} ]`);
+
+                const ErrorCommandEmbed = new EmbedBuilder()
                 .setColor("Red")
                 .setAuthor({ name: 'BabyFoot Tracker', iconURL: process.env.LOGO_URL, url: process.env.GITHUB_URL })
-                .setDescription(`${codeBlockErrorMessage}`)
+                .setDescription(`${codeBlockErrorCommandMessage}`)
                 .setTimestamp()
 	            .setFooter({ text: 'Created by .zenta.' });
 
                 return interaction.editReply({
                     content: `${user}`,
-                    embeds: [ErrorReplyEmbed],
+                    embeds: [ErrorCommandEmbed],
                     components: [],
                     ephemeral: true
                 });        
