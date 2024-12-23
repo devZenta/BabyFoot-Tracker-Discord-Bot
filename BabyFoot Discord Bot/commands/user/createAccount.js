@@ -169,7 +169,7 @@ module.exports = {
                     console.error(error);
 
                     const registerErrorMessage = codeBlock(`There was a problem creating your account. Please try again.`);
-                    const replyError = codeBlock(`⚠️ Error : [ ${error} ]`);
+                    const replyError = codeBlock(`⚠️ Error : [ ${error.message} ]`);
 
                     const registerErrorEmbed = new EmbedBuilder()
                         .setColor("Red")
@@ -205,11 +205,33 @@ module.exports = {
             }
         } catch (e) {
 
+            if (e.message === 'Collector received no interactions before ending with reason: time') {
+
+                const errorTimeMessage = codeBlock(`⚠️ Error : [ The command has been canceled because you did not confirm in time ]`);
+
+                const errorTimeCommandEmbed = new EmbedBuilder()
+                .setColor("Red")
+                .setAuthor({ name: 'BabyFoot Tracker', iconURL: process.env.LOGO_URL, url: process.env.GITHUB_URL })
+                .setDescription(`${errorTimeMessage}`)
+                .setTimestamp()
+	            .setFooter({ text: 'Created by .zenta.' });
+
+                await interaction.editReply({
+                    content: `${user}`,
+                    embeds: [errorTimeCommandEmbed],
+                    components: [],
+                    ephemeral: true
+                });
+
+                return;
+
+            }
+
             console.log(e);
 
-            const errorMessage = codeBlock(`❌ No confirmation after 60 seconds, operation canceled.`);
+            const errorMessage = codeBlock(`⚠️ Error : [ ${e.message} ]`);
 
-            const errorTimeCreationAccountEmbed = new EmbedBuilder()
+            const errorCommandEmbed = new EmbedBuilder()
             .setColor("Red")
             .setAuthor({ name: 'BabyFoot Tracker', iconURL: process.env.LOGO_URL, url: process.env.GITHUB_URL })
             .setDescription(`${errorMessage}`)
@@ -218,7 +240,7 @@ module.exports = {
 
             await interaction.editReply({
                 content: `${user}`,
-                embeds: [errorTimeCreationAccountEmbed],
+                embeds: [errorCommandEmbed],
                 components: [],
                 ephemeral: true
             });

@@ -89,9 +89,11 @@ module.exports = {
 
             } catch (error) {
 
+                // Rajouter des conditions pour les erreurs
+
                 console.error('Error sending DM:', error);
 
-                const codeBlockErrorMessage = codeBlock(`⚠️ Error : [ ${error} ]`);
+                const codeBlockErrorMessage = codeBlock(`⚠️ Error : [ ${error.message} ]`);
 
                 const ErrorReplyEmbed = new EmbedBuilder()
                 .setColor("Red")
