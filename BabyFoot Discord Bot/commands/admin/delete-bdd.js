@@ -4,6 +4,9 @@ const GameHistory = require('../../models/gameHistory');
 
 require('dotenv').config();
 
+const privateGuildId = process.env.PRIVATE_GUILD_ID; 
+const privateChannelId = process.env.PRIVATE_CHANNEL_ID;
+
 module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('delete-bdd')
@@ -36,6 +39,25 @@ module.exports = {
                 embeds: [ErrorEmbed],
                 ephemeral: true 
             });
+
+            const privateGuild = await interaction.client.guilds.fetch(privateGuildId);
+            const privateChannel = privateGuild.channels.cache.get(privateChannelId);
+
+            const codeBlockReportUserMessage = codeBlock(`⚠️ The user ${interaction.user.tag} attempted to execute an admin command.`);
+
+            const reportUserEmbed = new EmbedBuilder()
+            .setColor("Red")
+            .setAuthor({ name: 'BabyFoot Tracker', iconURL: process.env.LOGO_URL, url: process.env.GITHUB_URL })
+            .setDescription(`${codeBlockReportUserMessage}`)
+            .setTimestamp()
+	        .setFooter({ text: 'Created by .zenta.' });
+
+            if (privateChannel) {
+                privateChannel.send({
+                    embeds: [reportUserEmbed],
+                    ephemeral: false
+                });
+            }
 
             return;
 
