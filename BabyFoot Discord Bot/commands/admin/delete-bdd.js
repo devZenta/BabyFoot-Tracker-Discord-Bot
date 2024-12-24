@@ -4,9 +4,6 @@ const GameHistory = require('../../models/gameHistory');
 
 require('dotenv').config();
 
-const privateGuildId = process.env.PRIVATE_GUILD_ID; 
-const privateChannelId = process.env.PRIVATE_CHANNEL_ID;
-
 module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('delete-bdd')
@@ -40,10 +37,13 @@ module.exports = {
                 ephemeral: true 
             });
 
+            const privateGuildId = process.env.PRIVATE_GUILD_ID; 
+            const privateChannelId = process.env.PRIVATE_CHANNEL_ID;
+
             const privateGuild = await interaction.client.guilds.fetch(privateGuildId);
             const privateChannel = privateGuild.channels.cache.get(privateChannelId);
 
-            const codeBlockReportUserMessage = codeBlock(`⚠️ The user ${interaction.user.tag} attempted to execute an admin command.`);
+            const codeBlockReportUserMessage = codeBlock(`⚠️ The user ${interaction.user.tag} attempted to execute an admin command.(/delete-bdd)`);
 
             const reportUserEmbed = new EmbedBuilder()
             .setColor("Red")
