@@ -1,6 +1,5 @@
 const { SlashCommandBuilder, EmbedBuilder, codeBlock } = require('discord.js');
 const { checkPlayerExists, updatePlayerUsername, updatePlayerElo, updatePlayerWins, updatePlayerLosses, updatePlayerGamesPlayed, updatePlayerGoalsConceded, updatePlayerGoalsScored } = require('../../utils/functions'); 
-const { privateGuildId, privateChannelId } = require('./delete-bdd');
 
 require('dotenv').config();
 
@@ -109,7 +108,7 @@ module.exports = {
     async execute(interaction) { 
 
         const subcommand = interaction.options.getSubcommand();
-        const userId = BigInt(interaction.user.id);
+        const userId = interaction.user.id;
 
         if (userId !== process.env.ADMIN_USER_ID) {
 
@@ -117,7 +116,7 @@ module.exports = {
 
             const ErrorEmbed = new EmbedBuilder()
             .setColor("Red")
-            .setAuthor({ name: 'BabyFoot Tracker', iconURL: 'https://i.imgur.com/AfFp7pu.png', url: 'https://discord.js.org' })
+            .setAuthor({ name: 'BabyFoot Tracker', iconURL: process.env.LOGO_URL, url: process.env.GITHUB_URL })
             .setDescription(`${codeBlockErrorMessage}`)
             .setTimestamp()
 	        .setFooter({ text: 'Created by .zenta.' });
@@ -168,7 +167,7 @@ module.exports = {
             
                         const ErrorEmbed = new EmbedBuilder()
                             .setColor("Red")
-                            .setAuthor({ name: 'BabyFoot Tracker', iconURL: 'https://i.imgur.com/AfFp7pu.png', url: 'https://discord.js.org' })
+                            .setAuthor({ name: 'BabyFoot Tracker', iconURL: process.env.LOGO_URL, url: process.env.GITHUB_URL })
                             .setDescription(`${codeBlockErrorMessage}`)
                             .setTimestamp()
                             .setFooter({ text: 'Created by .zenta.' });
@@ -188,7 +187,7 @@ module.exports = {
 
                     const SuccessEmbed = new EmbedBuilder()
                     .setColor("Green")
-                    .setAuthor({ name: 'BabyFoot Tracker', iconURL: 'https://i.imgur.com/AfFp7pu.png', url: 'https://discord.js.org' })
+                    .setAuthor({ name: 'BabyFoot Tracker', iconURL: process.env.LOGO_URL, url: process.env.GITHUB_URL })
                     .setDescription(`${commandMessage}`)
                     .setTimestamp()
 	                .setFooter({ text: 'Created by .zenta.' });
@@ -207,7 +206,7 @@ module.exports = {
             
                     const ErrorEmbed = new EmbedBuilder()
                         .setColor("Red")
-                        .setAuthor({ name: 'BabyFoot Tracker', iconURL: 'https://i.imgur.com/AfFp7pu.png', url: 'https://discord.js.org' })
+                        .setAuthor({ name: 'BabyFoot Tracker', iconURL: process.env.LOGO_URL, url: process.env.GITHUB_URL })
                         .setDescription(`${codeBlockErrorMessage}`)
                         .setTimestamp()
                         .setFooter({ text: 'Created by .zenta.' });
@@ -234,7 +233,7 @@ module.exports = {
             
                         const ErrorEmbed = new EmbedBuilder()
                             .setColor("Red")
-                            .setAuthor({ name: 'BabyFoot Tracker', iconURL: 'https://i.imgur.com/AfFp7pu.png', url: 'https://discord.js.org' })
+                            .setAuthor({ name: 'BabyFoot Tracker', iconURL: process.env.LOGO_URL, url: process.env.GITHUB_URL })
                             .setDescription(`${codeBlockErrorMessage}`)
                             .setTimestamp()
                             .setFooter({ text: 'Created by .zenta.' });
@@ -254,7 +253,7 @@ module.exports = {
 
                     const SuccessEmbed = new EmbedBuilder()
                     .setColor("Green")
-                    .setAuthor({ name: 'BabyFoot Tracker', iconURL: 'https://i.imgur.com/AfFp7pu.png', url: 'https://discord.js.org' })
+                    .setAuthor({ name: 'BabyFoot Tracker', iconURL: process.env.LOGO_URL, url: process.env.GITHUB_URL })
                     .setDescription(`${commandMessage}`)
                     .setTimestamp()
 	                .setFooter({ text: 'Created by .zenta.' });
@@ -273,7 +272,7 @@ module.exports = {
             
                     const ErrorEmbed = new EmbedBuilder()
                         .setColor("Red")
-                        .setAuthor({ name: 'BabyFoot Tracker', iconURL: 'https://i.imgur.com/AfFp7pu.png', url: 'https://discord.js.org' })
+                        .setAuthor({ name: 'BabyFoot Tracker', iconURL: process.env.LOGO_URL, url: process.env.GITHUB_URL })
                         .setDescription(`${codeBlockErrorMessage}`)
                         .setTimestamp()
                         .setFooter({ text: 'Created by .zenta.' });
@@ -301,7 +300,7 @@ module.exports = {
             
                         const ErrorEmbed = new EmbedBuilder()
                             .setColor("Red")
-                            .setAuthor({ name: 'BabyFoot Tracker', iconURL: 'https://i.imgur.com/AfFp7pu.png', url: 'https://discord.js.org' })
+                            .setAuthor({ name: 'BabyFoot Tracker', iconURL: process.env.LOGO_URL, url: process.env.GITHUB_URL })
                             .setDescription(`${codeBlockErrorMessage}`)
                             .setTimestamp()
                             .setFooter({ text: 'Created by .zenta.' });
@@ -321,7 +320,7 @@ module.exports = {
 
                     const SuccessEmbed = new EmbedBuilder()
                     .setColor("Green")
-                    .setAuthor({ name: 'BabyFoot Tracker', iconURL: 'https://i.imgur.com/AfFp7pu.png', url: 'https://discord.js.org' })
+                    .setAuthor({ name: 'BabyFoot Tracker', iconURL: process.env.LOGO_URL, url: process.env.GITHUB_URL })
                     .setDescription(`${commandMessage}`)
                     .setTimestamp()
 	                .setFooter({ text: 'Created by .zenta.' });
@@ -340,7 +339,7 @@ module.exports = {
             
                     const ErrorEmbed = new EmbedBuilder()
                         .setColor("Red")
-                        .setAuthor({ name: 'BabyFoot Tracker', iconURL: 'https://i.imgur.com/AfFp7pu.png', url: 'https://discord.js.org' })
+                        .setAuthor({ name: 'BabyFoot Tracker', iconURL: process.env.LOGO_URL, url: process.env.GITHUB_URL })
                         .setDescription(`${codeBlockErrorMessage}`)
                         .setTimestamp()
                         .setFooter({ text: 'Created by .zenta.' });
@@ -367,7 +366,7 @@ module.exports = {
             
                         const ErrorEmbed = new EmbedBuilder()
                             .setColor("Red")
-                            .setAuthor({ name: 'BabyFoot Tracker', iconURL: 'https://i.imgur.com/AfFp7pu.png', url: 'https://discord.js.org' })
+                            .setAuthor({ name: 'BabyFoot Tracker', iconURL: process.env.LOGO_URL, url: process.env.GITHUB_URL })
                             .setDescription(`${codeBlockErrorMessage}`)
                             .setTimestamp()
                             .setFooter({ text: 'Created by .zenta.' });
@@ -387,7 +386,7 @@ module.exports = {
 
                     const SuccessEmbed = new EmbedBuilder()
                     .setColor("Green")
-                    .setAuthor({ name: 'BabyFoot Tracker', iconURL: 'https://i.imgur.com/AfFp7pu.png', url: 'https://discord.js.org' })
+                    .setAuthor({ name: 'BabyFoot Tracker', iconURL: process.env.LOGO_URL, url: process.env.GITHUB_URL })
                     .setDescription(`${commandMessage}`)
                     .setTimestamp()
 	                .setFooter({ text: 'Created by .zenta.' });
@@ -406,7 +405,7 @@ module.exports = {
             
                     const ErrorEmbed = new EmbedBuilder()
                         .setColor("Red")
-                        .setAuthor({ name: 'BabyFoot Tracker', iconURL: 'https://i.imgur.com/AfFp7pu.png', url: 'https://discord.js.org' })
+                        .setAuthor({ name: 'BabyFoot Tracker', iconURL: process.env.LOGO_URL, url: process.env.GITHUB_URL })
                         .setDescription(`${codeBlockErrorMessage}`)
                         .setTimestamp()
                         .setFooter({ text: 'Created by .zenta.' });
@@ -433,7 +432,7 @@ module.exports = {
             
                         const ErrorEmbed = new EmbedBuilder()
                             .setColor("Red")
-                            .setAuthor({ name: 'BabyFoot Tracker', iconURL: 'https://i.imgur.com/AfFp7pu.png', url: 'https://discord.js.org' })
+                            .setAuthor({ name: 'BabyFoot Tracker', iconURL: process.env.LOGO_URL, url: process.env.GITHUB_URL })
                             .setDescription(`${codeBlockErrorMessage}`)
                             .setTimestamp()
                             .setFooter({ text: 'Created by .zenta.' });
@@ -453,7 +452,7 @@ module.exports = {
 
                     const SuccessEmbed = new EmbedBuilder()
                     .setColor("Green")
-                    .setAuthor({ name: 'BabyFoot Tracker', iconURL: 'https://i.imgur.com/AfFp7pu.png', url: 'https://discord.js.org' })
+                    .setAuthor({ name: 'BabyFoot Tracker', iconURL: process.env.LOGO_URL, url: process.env.GITHUB_URL })
                     .setDescription(`${commandMessage}`)
                     .setTimestamp()
 	                .setFooter({ text: 'Created by .zenta.' });
@@ -472,7 +471,7 @@ module.exports = {
             
                     const ErrorEmbed = new EmbedBuilder()
                         .setColor("Red")
-                        .setAuthor({ name: 'BabyFoot Tracker', iconURL: 'https://i.imgur.com/AfFp7pu.png', url: 'https://discord.js.org' })
+                        .setAuthor({ name: 'BabyFoot Tracker', iconURL: process.env.LOGO_URL, url: process.env.GITHUB_URL })
                         .setDescription(`${codeBlockErrorMessage}`)
                         .setTimestamp()
                         .setFooter({ text: 'Created by .zenta.' });
@@ -499,7 +498,7 @@ module.exports = {
             
                         const ErrorEmbed = new EmbedBuilder()
                             .setColor("Red")
-                            .setAuthor({ name: 'BabyFoot Tracker', iconURL: 'https://i.imgur.com/AfFp7pu.png', url: 'https://discord.js.org' })
+                            .setAuthor({ name: 'BabyFoot Tracker', iconURL: process.env.LOGO_URL, url: process.env.GITHUB_URL })
                             .setDescription(`${codeBlockErrorMessage}`)
                             .setTimestamp()
                             .setFooter({ text: 'Created by .zenta.' });
@@ -519,7 +518,7 @@ module.exports = {
 
                     const SuccessEmbed = new EmbedBuilder()
                     .setColor("Green")
-                    .setAuthor({ name: 'BabyFoot Tracker', iconURL: 'https://i.imgur.com/AfFp7pu.png', url: 'https://discord.js.org' })
+                    .setAuthor({ name: 'BabyFoot Tracker', iconURL: process.env.LOGO_URL, url: process.env.GITHUB_URL })
                     .setDescription(`${commandMessage}`)
                     .setTimestamp()
 	                .setFooter({ text: 'Created by .zenta.' });
@@ -538,7 +537,7 @@ module.exports = {
             
                     const ErrorEmbed = new EmbedBuilder()
                         .setColor("Red")
-                        .setAuthor({ name: 'BabyFoot Tracker', iconURL: 'https://i.imgur.com/AfFp7pu.png', url: 'https://discord.js.org' })
+                        .setAuthor({ name: 'BabyFoot Tracker', iconURL: process.env.LOGO_URL, url: process.env.GITHUB_URL })
                         .setDescription(`${codeBlockErrorMessage}`)
                         .setTimestamp()
                         .setFooter({ text: 'Created by .zenta.' });
@@ -565,7 +564,7 @@ module.exports = {
             
                         const ErrorEmbed = new EmbedBuilder()
                             .setColor("Red")
-                            .setAuthor({ name: 'BabyFoot Tracker', iconURL: 'https://i.imgur.com/AfFp7pu.png', url: 'https://discord.js.org' })
+                            .setAuthor({ name: 'BabyFoot Tracker', iconURL: process.env.LOGO_URL, url: process.env.GITHUB_URL })
                             .setDescription(`${codeBlockErrorMessage}`)
                             .setTimestamp()
                             .setFooter({ text: 'Created by .zenta.' });
@@ -585,7 +584,7 @@ module.exports = {
 
                     const SuccessEmbed = new EmbedBuilder()
                     .setColor("Green")
-                    .setAuthor({ name: 'BabyFoot Tracker', iconURL: 'https://i.imgur.com/AfFp7pu.png', url: 'https://discord.js.org' })
+                    .setAuthor({ name: 'BabyFoot Tracker', iconURL: process.env.LOGO_URL, url: process.env.GITHUB_URL })
                     .setDescription(`${commandMessage}`)
                     .setTimestamp()
 	                .setFooter({ text: 'Created by .zenta.' });
@@ -604,7 +603,7 @@ module.exports = {
             
                     const ErrorEmbed = new EmbedBuilder()
                         .setColor("Red")
-                        .setAuthor({ name: 'BabyFoot Tracker', iconURL: 'https://i.imgur.com/AfFp7pu.png', url: 'https://discord.js.org' })
+                        .setAuthor({ name: 'BabyFoot Tracker', iconURL: process.env.LOGO_URL, url: process.env.GITHUB_URL })    
                         .setDescription(`${codeBlockErrorMessage}`)
                         .setTimestamp()
                         .setFooter({ text: 'Created by .zenta.' });
