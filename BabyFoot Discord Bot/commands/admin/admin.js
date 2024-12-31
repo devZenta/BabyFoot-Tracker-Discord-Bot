@@ -1,5 +1,5 @@
 const { SlashCommandBuilder, EmbedBuilder, codeBlock } = require('discord.js');
-const { checkPlayerExists, updatePlayerUsername, updatePlayerElo, updatePlayerWins, updatePlayerLosses, updatePlayerGamesPlayed, updatePlayerGoalsConceded, updatePlayerGoalsScored } = require('../../utils/functions'); 
+const { checkPlayerExists, updatePlayerUsername, updatePlayerElo, updatePlayerWins, updatePlayerLosses, updatePlayerGamesPlayed, updatePlayerGoalsConceded, updatePlayerGoalsScored, getPlayerById } = require('../../utils/functions'); 
 
 require('dotenv').config();
 
@@ -180,15 +180,21 @@ module.exports = {
             
                         return;
                     }
+
+                    const player = await getPlayerById(playerId);
             
                     await updatePlayerGoalsScored(playerId, newGoalsScored);
 
-                    commandMessage = codeBlock('Goals Scored updated successfully.');
+                    const playerUpdate = await getPlayerById(playerId);
+
+                    const codeBlockStatsMessage = codeBlock(`Username: ${player.username}\nElo: ${player.elo}\nWin Rate: ${player.winrate}%\nWins: ${player.wins}\nLosses: ${player.losses}\nGames played: ${player.games}\nGoal Ratio: ${player.goalRatio} ➡️ ${playerUpdate.goalRatio}\nGoals scored: ${player.goalsScored} ➡️ ${playerUpdate.goalsScored}\nGoals conceded: ${player.goalsConceded}`);
+
+                    const commandMessage = codeBlock('✔️ Goals Scored updated successfully.');
 
                     const SuccessEmbed = new EmbedBuilder()
                     .setColor("Green")
                     .setAuthor({ name: 'BabyFoot Tracker', iconURL: process.env.LOGO_URL, url: process.env.GITHUB_URL })
-                    .setDescription(`${commandMessage}`)
+                    .setDescription(`${commandMessage}\n\n⚙️ **Here are the modified stats :**\n${codeBlockStatsMessage}`)
                     .setTimestamp()
 	                .setFooter({ text: 'Created by .zenta.' });
 
@@ -246,15 +252,21 @@ module.exports = {
             
                         return;
                     }
+
+                    const player = await getPlayerById(playerId);
             
                     await updatePlayerGoalsConceded(playerId, newGoalsConceded);
 
-                    commandMessage = codeBlock('Goals Conceded updated successfully.');
+                    const playerUpdate = await getPlayerById(playerId);
+
+                    const codeBlockStatsMessage = codeBlock(`Username: ${player.username}\nElo: ${player.elo}\nWin Rate: ${player.winrate}%\nWins: ${player.wins}\nLosses: ${player.losses}\nGames played: ${player.games}\nGoal Ratio: ${player.goalRatio} ➡️ ${playerUpdate.goalRatio}\nGoals scored: ${player.goalsScored}\nGoals conceded: ${player.goalsConceded} ➡️ ${playerUpdate.goalsConceded}`);
+
+                    const commandMessage = codeBlock('✔️ Goals Conceded updated successfully.');
 
                     const SuccessEmbed = new EmbedBuilder()
                     .setColor("Green")
                     .setAuthor({ name: 'BabyFoot Tracker', iconURL: process.env.LOGO_URL, url: process.env.GITHUB_URL })
-                    .setDescription(`${commandMessage}`)
+                    .setDescription(`${commandMessage}\n\n⚙️ **Here are the modified stats :**\n${codeBlockStatsMessage}`)
                     .setTimestamp()
 	                .setFooter({ text: 'Created by .zenta.' });
 
@@ -313,15 +325,21 @@ module.exports = {
             
                         return;
                     }
+
+                    const player = await getPlayerById(playerId);
             
                     await updatePlayerUsername(playerId, newUsername);
 
-                    commandMessage = codeBlock('Username updated successfully.');
+                    const playerUpdate = await getPlayerById(playerId);
+
+                    const codeBlockStatsMessage = codeBlock(`Username: ${player.username} ➡️ ${playerUpdate.username}\nElo: ${player.elo}\nWin Rate: ${player.winrate}%\nWins: ${player.wins}\nLosses: ${player.losses}\nGames played: ${player.games}\nGoal Ratio: ${player.goalRatio}\nGoals scored: ${player.goalsScored}\nGoals conceded: ${player.goalsConceded}`);
+
+                    const commandMessage = codeBlock('✔️ Username updated successfully.');
 
                     const SuccessEmbed = new EmbedBuilder()
                     .setColor("Green")
                     .setAuthor({ name: 'BabyFoot Tracker', iconURL: process.env.LOGO_URL, url: process.env.GITHUB_URL })
-                    .setDescription(`${commandMessage}`)
+                    .setDescription(`${commandMessage}\n\n⚙️ **Here are the modified stats :**\n${codeBlockStatsMessage}`)
                     .setTimestamp()
 	                .setFooter({ text: 'Created by .zenta.' });
 
@@ -379,15 +397,21 @@ module.exports = {
             
                         return;
                     }
+
+                    const player = await getPlayerById(playerId);
             
                     await updatePlayerElo(playerId, newElo);
 
-                    commandMessage = codeBlock('Elo updated successfully.');
+                    const playerUpdate = await getPlayerById(playerId);
+
+                    const codeBlockStatsMessage = codeBlock(`Username: ${player.username}\nElo: ${player.elo} ➡️ ${playerUpdate.elo}\nWin Rate: ${player.winrate}%\nWins: ${player.wins}\nLosses: ${player.losses}\nGames played: ${player.games}\nGoal Ratio: ${player.goalRatio}\nGoals scored: ${player.goalsScored}\nGoals conceded: ${player.goalsConceded}`);
+
+                    const commandMessage = codeBlock('✔️ Elo updated successfully.');
 
                     const SuccessEmbed = new EmbedBuilder()
                     .setColor("Green")
                     .setAuthor({ name: 'BabyFoot Tracker', iconURL: process.env.LOGO_URL, url: process.env.GITHUB_URL })
-                    .setDescription(`${commandMessage}`)
+                    .setDescription(`${commandMessage}\n\n⚙️ **Here are the modified stats :**\n${codeBlockStatsMessage}`)
                     .setTimestamp()
 	                .setFooter({ text: 'Created by .zenta.' });
 
@@ -445,15 +469,21 @@ module.exports = {
             
                         return;
                     }
+
+                    const player = await getPlayerById(playerId);
             
                     await updatePlayerWins(playerId, newWin);
 
-                    commandMessage = codeBlock('Wins updated successfully.');
+                    const playerUpdate = await getPlayerById(playerId);
+
+                    const codeBlockStatsMessage = codeBlock(`Username: ${player.username}\nElo: ${player.elo}\nWin Rate: ${player.winrate}% ➡️ ${playerUpdate.winrate}%\nWins: ${player.wins} ➡️ ${playerUpdate.wins}\nLosses: ${player.losses}\nGames played: ${player.games}\nGoal Ratio: ${player.goalRatio}\nGoals scored: ${player.goalsScored}\nGoals conceded: ${player.goalsConceded}`);
+
+                    const commandMessage = codeBlock('✔️ Wins updated successfully.');
 
                     const SuccessEmbed = new EmbedBuilder()
                     .setColor("Green")
                     .setAuthor({ name: 'BabyFoot Tracker', iconURL: process.env.LOGO_URL, url: process.env.GITHUB_URL })
-                    .setDescription(`${commandMessage}`)
+                    .setDescription(`${commandMessage}\n\n⚙️ **Here are the modified stats :**\n${codeBlockStatsMessage}`)
                     .setTimestamp()
 	                .setFooter({ text: 'Created by .zenta.' });
 
@@ -511,15 +541,21 @@ module.exports = {
             
                         return;
                     }
+
+                    const player = await getPlayerById(playerId);
             
                     await updatePlayerLosses(playerId, newLoose);
 
-                    commandMessage = codeBlock('Losses updated successfully.');
+                    const playerUpdate = await getPlayerById(playerId);
+
+                    const codeBlockStatsMessage = codeBlock(`Username: ${player.username}\nElo: ${player.elo}\nWin Rate: ${player.winrate}%\nWins: ${player.wins}\nLosses: ${player.losses} ➡️ ${playerUpdate.losses}\nGames played: ${player.games}\nGoal Ratio: ${player.goalRatio}\nGoals scored: ${player.goalsScored}\nGoals conceded: ${player.goalsConceded}`);
+
+                    const commandMessage = codeBlock('✔️ Losses updated successfully.');
 
                     const SuccessEmbed = new EmbedBuilder()
                     .setColor("Green")
                     .setAuthor({ name: 'BabyFoot Tracker', iconURL: process.env.LOGO_URL, url: process.env.GITHUB_URL })
-                    .setDescription(`${commandMessage}`)
+                    .setDescription(`${commandMessage}\n\n⚙️ **Here are the modified stats :**\n${codeBlockStatsMessage}`)
                     .setTimestamp()
 	                .setFooter({ text: 'Created by .zenta.' });
 
@@ -577,15 +613,21 @@ module.exports = {
             
                         return;
                     }
+
+                    const player = await getPlayerById(playerId);
             
                     await updatePlayerGamesPlayed(playerId, newGame);
 
-                    commandMessage = codeBlock('Games updated successfully.');
+                    const playerUpdate = await getPlayerById(playerId);
+
+                    const codeBlockStatsMessage = codeBlock(`Username: ${player.username}\nElo: ${player.elo}\nWin Rate: ${player.winrate}% ➡️ ${playerUpdate.winrate}%\nWins: ${player.wins}\nLosses: ${player.losses}\nGames played: ${player.games} ➡️ ${playerUpdate.games}\nGoal Ratio: ${player.goalRatio}\nGoals scored: ${player.goalsScored}\nGoals conceded: ${player.goalsConceded}`);
+
+                    const commandMessage = codeBlock('✔️ Games updated successfully.');
 
                     const SuccessEmbed = new EmbedBuilder()
                     .setColor("Green")
                     .setAuthor({ name: 'BabyFoot Tracker', iconURL: process.env.LOGO_URL, url: process.env.GITHUB_URL })
-                    .setDescription(`${commandMessage}`)
+                    .setDescription(`${commandMessage}\n\n⚙️ **Here are the modified stats :**\n${codeBlockStatsMessage}`)
                     .setTimestamp()
 	                .setFooter({ text: 'Created by .zenta.' });
 

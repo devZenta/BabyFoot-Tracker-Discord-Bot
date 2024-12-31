@@ -226,6 +226,15 @@ async function updatePlayerGamesPlayed(playerId, newGamesPlayed) {
     }
 }
 
+async function getPlayerById(playerId) {
+    const player = await Player.findOne({
+        where: {
+            id: playerId
+        }
+    });
+    return player;
+}
+
 module.exports = {
     fetchUsernamesFromDatabase,
     balanceTeamsByEloBruteForce,
@@ -236,5 +245,6 @@ module.exports = {
     updatePlayerGoalsScored,
     updatePlayerWins,
     updatePlayerLosses,
-    updatePlayerGamesPlayed
+    updatePlayerGamesPlayed,
+    getPlayerById
 };
