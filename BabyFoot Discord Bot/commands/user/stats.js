@@ -14,6 +14,7 @@ module.exports = {
 	async execute(interaction) {
 
         let playerStats;
+        let player;
         const playerInput = interaction.options.getUser('player');
 		const user = interaction.user;
         const userId = interaction.user.id;
@@ -23,21 +24,47 @@ module.exports = {
         } else {
             playerStats = playerInput.id;
         }
- 
-        const player = await Player.findOne({ where: { id: playerStats } });
-        
+
+        try {
+            
+            player = await Player.findOne({ where: { id: playerStats } });
+
+        } catch (error) {
+
+            console.error(error);
+
+            const codeBlockErrorCommandMessage = codeBlock(`⚠️ Error : [ ${error.message} ]`);
+
+            const ErrorCommandEmbed = new EmbedBuilder()
+            .setColor("Red")
+            .setAuthor({ name: 'BabyFoot Tracker', iconURL: process.env.LOGO_URL, url: process.env.GITHUB_URL })
+            .setDescription(`${codeBlockErrorCommandMessage}`)
+            .setTimestamp()
+	        .setFooter({ text: 'Created by .zenta.' });
+
+            await interaction.reply({
+                content: `${user}`,
+                embeds: [ErrorCommandEmbed],
+                components: [],
+                ephemeral: true
+            });        
+
+            return;
+
+        }
+
         const loadingMessage = codeBlock(`🔄 loading...`);
 
         await interaction.reply({ 
             content: `${loadingMessage}`, 
-            fetchReply: true, 
+            fetchReply: true,
             ephemeral: true 
         });
 
-        if (player) {
+        try {
 
-            try {
-
+            if (player) {
+                
                 const usernamePlayer = player.get('username');
                 const eloPlayer = player.get('elo');
                 const winPlayer = player.get('wins');
@@ -86,65 +113,66 @@ module.exports = {
                     components: [row],
                     ephemeral: true
                 });
+            } 
+        } catch (error) {
+            
+            if (error.message === 'Cannot send messages to this user') {
+                
+                const userStats = await Player.findOne({ where: { id: playerStats } });
 
-            } catch (error) {
+                const usernamePlayer = userStats.get('username');
+                const eloPlayer = userStats.get('elo');
+                const winPlayer = userStats.get('wins');
+                const loosePlayer = userStats.get('losses');
+                const gamesPlayed = userStats.get('games');
+                const winratePlayer = userStats.winrate;
+                const goalsScored = userStats.get('goalsScored');
+                const goalsConceded = userStats.get('goalsConceded');
+                const goalRatio = userStats.goalRatio;
 
-                if (error.message === 'Cannot send messages to this user') {
-                    
-                    const userStats = await Player.findOne({ where: { id: playerStats } });
+                const codeBlockStatsMessage = codeBlock(`Username: ${usernamePlayer}\nElo: ${eloPlayer}\nWin Rate: ${winratePlayer}%\nWins: ${winPlayer}\nLosses: ${loosePlayer}\nGames played: ${gamesPlayed}\nGoal Ratio: ${goalRatio}\nGoals scored: ${goalsScored}\nGoals conceded: ${goalsConceded}`);
 
-                    const usernamePlayer = userStats.get('username');
-                    const eloPlayer = userStats.get('elo');
-                    const winPlayer = userStats.get('wins');
-                    const loosePlayer = userStats.get('losses');
-                    const gamesPlayed = userStats.get('games');
-                    const winratePlayer = userStats.winrate;
-                    const goalsScored = userStats.get('goalsScored');
-                    const goalsConceded = userStats.get('goalsConceded');
-                    const goalRatio = userStats.goalRatio;
+                const dmErrorMessage = codeBlock(`⚠️ Cannot send you a private message. Please check your privacy settings.`);
 
-                    const codeBlockStatsMessage = codeBlock(`Username: ${usernamePlayer}\nElo: ${eloPlayer}\nWin Rate: ${winratePlayer}%\nWins: ${winPlayer}\nLosses: ${loosePlayer}\nGames played: ${gamesPlayed}\nGoal Ratio: ${goalRatio}\nGoals scored: ${goalsScored}\nGoals conceded: ${goalsConceded}`);
-
-                    const dmErrorMessage = codeBlock(`⚠️ Cannot send you a private message. Please check your privacy settings.`);
-
-                    const dmErrorEmbed = new EmbedBuilder()
-                    .setColor("Orange")
-                    .setAuthor({ name: 'BabyFoot Tracker', iconURL: process.env.LOGO_URL, url: process.env.GITHUB_URL })
-                    .setDescription(`${dmErrorMessage}\n\n🏆 **${usernamePlayer} Statistics** 🏆\n${codeBlockStatsMessage}`)
-                    .setTimestamp()
-                    .setFooter({ text: 'Created by .zenta.' });
-
-                    await interaction.editReply({
-                        content: `${user}`,
-                        embeds: [dmErrorEmbed],
-                        components: [],
-                        ephemeral: true
-                    });
-
-                    return;
-
-                }
-
-                console.error(error);
-
-                const codeBlockErrorCommandMessage = codeBlock(`⚠️ Error : [ ${error.message} ]`);
-
-                const ErrorCommandEmbed = new EmbedBuilder()
-                .setColor("Red")
+                const dmErrorEmbed = new EmbedBuilder()
+                .setColor("Orange")
                 .setAuthor({ name: 'BabyFoot Tracker', iconURL: process.env.LOGO_URL, url: process.env.GITHUB_URL })
-                .setDescription(`${codeBlockErrorCommandMessage}`)
+                .setDescription(`${dmErrorMessage}\n\n🏆 **${usernamePlayer} Statistics** 🏆\n${codeBlockStatsMessage}`)
                 .setTimestamp()
-	            .setFooter({ text: 'Created by .zenta.' });
+                .setFooter({ text: 'Created by .zenta.' });
 
-                return interaction.editReply({
+                await interaction.editReply({
                     content: `${user}`,
-                    embeds: [ErrorCommandEmbed],
+                    embeds: [dmErrorEmbed],
                     components: [],
                     ephemeral: true
-                });        
-            }
-        }
+                });
 
+                return;
+            
+            }
+            
+            console.error(error);
+
+            const codeBlockErrorCommandMessage = codeBlock(`⚠️ Error : [ ${error.message} ]`);
+
+            const ErrorCommandEmbed = new EmbedBuilder()
+            .setColor("Red")
+            .setAuthor({ name: 'BabyFoot Tracker', iconURL: process.env.LOGO_URL, url: process.env.GITHUB_URL })
+            .setDescription(`${codeBlockErrorCommandMessage}`)
+            .setTimestamp()
+	        .setFooter({ text: 'Created by .zenta.' });
+
+            await interaction.editReply({
+                content: `${user}`,
+                embeds: [ErrorCommandEmbed],
+                components: [],
+                ephemeral: true
+            });        
+
+            return;
+        }
+        
         const codeBlockErrorFindAccoundMessage = codeBlock(`❌ Could not find this account in the database`);
 
         const statsErrorFindEmbed = new EmbedBuilder()
@@ -160,5 +188,5 @@ module.exports = {
             components: [],
             ephemeral: true
         });        
-	},
-};
+	}
+}
