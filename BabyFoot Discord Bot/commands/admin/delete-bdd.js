@@ -71,7 +71,7 @@ module.exports = {
 
                     await Player.drop();
 
-                    const codeBlockSuccessMessage = codeBlock(`✅ Player Table has been deleted successfully.`);
+                    const codeBlockSuccessMessage = codeBlock(`✔️ Player Table has been deleted successfully.`);
 
                     const successDeleteTableEmbed = new EmbedBuilder()
                     .setColor("Green")
@@ -117,7 +117,7 @@ module.exports = {
 
                     await GameHistory.drop();
 
-                    const codeBlockSuccessMessage = codeBlock(`✅ GameHistory Table has been deleted successfully.`);
+                    const codeBlockSuccessMessage = codeBlock(`✔️ GameHistory Table has been deleted successfully.`);
 
                     const successDeleteTableEmbed = new EmbedBuilder()
                     .setColor("Green")
