@@ -42,7 +42,7 @@ BabyFoot Tracker is a Discord bot designed to manage and track games of table fo
     npm install
     ```
 
-3. Create a [.env](http://_vscodecontentref_/0) file and add your Discord bot token and other necessary environment variables:
+3. Create a [.env](https://discordjs.guide/creating-your-bot/#using-dotenv) file and add your Discord bot token and other necessary environment variables:
     ```env
     TOKEN=your-discord-bot-token
     CLIENT_ID=your-client-id
