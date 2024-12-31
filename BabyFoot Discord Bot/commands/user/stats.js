@@ -14,6 +14,7 @@ module.exports = {
 	async execute(interaction) {
 
         let playerStats;
+        let player;
         const playerInput = interaction.options.getUser('player');
 		const user = interaction.user;
         const userId = interaction.user.id;
@@ -26,15 +27,41 @@ module.exports = {
 
         try {
             
-            const player = await Player.findOne({ where: { id: playerStats } });
-            
-            const loadingMessage = codeBlock(`🔄 loading...`);
+            player = await Player.findOne({ where: { id: playerStats } });
 
-            await interaction.reply({ 
-                content: `${loadingMessage}`, 
-                fetchReply: true, 
-                ephemeral: true 
-            });
+        } catch (error) {
+
+            console.error(error);
+
+            const codeBlockErrorCommandMessage = codeBlock(`⚠️ Error : [ ${error.message} ]`);
+
+            const ErrorCommandEmbed = new EmbedBuilder()
+            .setColor("Red")
+            .setAuthor({ name: 'BabyFoot Tracker', iconURL: process.env.LOGO_URL, url: process.env.GITHUB_URL })
+            .setDescription(`${codeBlockErrorCommandMessage}`)
+            .setTimestamp()
+	        .setFooter({ text: 'Created by .zenta.' });
+
+            await interaction.reply({
+                content: `${user}`,
+                embeds: [ErrorCommandEmbed],
+                components: [],
+                ephemeral: true
+            });        
+
+            return;
+
+        }
+
+        const loadingMessage = codeBlock(`🔄 loading...`);
+
+        await interaction.reply({ 
+            content: `${loadingMessage}`, 
+            fetchReply: true,
+            ephemeral: true 
+        });
+
+        try {
 
             if (player) {
                 
@@ -136,12 +163,14 @@ module.exports = {
             .setTimestamp()
 	        .setFooter({ text: 'Created by .zenta.' });
 
-            return interaction.editReply({
+            await interaction.editReply({
                 content: `${user}`,
                 embeds: [ErrorCommandEmbed],
                 components: [],
                 ephemeral: true
             });        
+
+            return;
         }
         
         const codeBlockErrorFindAccoundMessage = codeBlock(`❌ Could not find this account in the database`);
