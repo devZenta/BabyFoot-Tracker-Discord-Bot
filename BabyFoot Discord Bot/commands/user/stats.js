@@ -63,7 +63,7 @@ module.exports = {
                     components: [],
                 });
 
-                const codeBlockSuccesFindAccoundMessage = codeBlock(`✅ Account found in the database`);
+                const codeBlockSuccesFindAccoundMessage = codeBlock(`✔️ Account found in the database`);
 
                 const statsFindEmbed = new EmbedBuilder()
                 .setColor("Green")
