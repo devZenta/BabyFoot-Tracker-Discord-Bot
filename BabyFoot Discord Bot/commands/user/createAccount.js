@@ -57,7 +57,7 @@ module.exports = {
                         username: username,
                     })
 
-                    const confirmCreationAccountMessage = codeBlock(`✅ ${player.username} your account has been created`);
+                    const confirmCreationAccountMessage = codeBlock(`✔️ ${player.username} your account has been created`);
 
                     const confirmCreationAccountEmbed = new EmbedBuilder()
                     .setColor("Green")
@@ -147,7 +147,7 @@ module.exports = {
 
                         const codeBlockStatsMessage = codeBlock(`Username: ${usernamePlayer}\nElo: ${eloPlayer}\nWin Rate: ${winratePlayer}%\nWins: ${winPlayer}\nLosses: ${loosePlayer}\nGames played: ${gamesPlayed}\nGoal Ratio: ${goalRatio}\nGoals scored: ${goalsScored}\nGoals conceded: ${goalsConceded}`);
 
-                        const dmErrorMessage = codeBlock(`⚙️ Logs ⚙️\n\n⚠️ Cannot send you a private message. Please check your privacy settings.\n\n✅ ${usernamePlayer} your account has been created`);
+                        const dmErrorMessage = codeBlock(`⚠️ Cannot send you a private message. Please check your privacy settings.\n\n✔️ ${usernamePlayer} your account has been created`);
                     
                         const dmErrorEmbed = new EmbedBuilder()
                         .setColor("Orange")
