@@ -1,7 +1,5 @@
 # BabyFoot Discord Bot
 
-<img src="https://cdn.discordapp.com/attachments/1320854475279433872/1320854565800775790/logo.png?ex=6775006c&is=6773aeec&hm=8f27aa7dffbb8935adfbee7f4d59f4bcf3ef27f8dc00b574d3ff10e2e61761ea&" alt="BabyFoot Tracker" width="200"/>
-
 BabyFoot Tracker is a Discord bot designed to manage and track games of table football. It provides various commands for users and admins to interact with the bot and manage player statistics.
 
 ## Features
@@ -80,16 +78,3 @@ This project is licensed under the ISC License.
 - Created by [zenta](https://github.com/devZenta)
 - Powered by [Discord.js](https://discord.js.org/)
 - Database management with [Sequelize](https://sequelize.org/)
-
-## Acknowledgements
-
-<div style="display: flex; align-items: center;">
-  <div>
-    - Created by [zenta](https://github.com/devZenta)<br>
-    - Powered by [Discord.js](https://discord.js.org/)<br>
-    - Database management with [Sequelize](https://sequelize.org/)
-  </div>
-  <div style="margin-left: auto;">
-    <img src="https://cdn.discordapp.com/attachments/1320854475279433872/1320854565800775790/logo.png?ex=6775006c&is=6773aeec&hm=8f27aa7dffbb8935adfbee7f4d59f4bcf3ef27f8dc00b574d3ff10e2e61761ea&" alt="BabyFoot Tracker" width="200"/>
-  </div>
-</div>
