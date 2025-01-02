@@ -4,12 +4,18 @@ BabyFoot Tracker is a Discord bot designed to manage and track games of table fo
 
 ## Features
 
+- Create a game with random teams 
 - Create and manage player accounts
 - Track player statistics including ELO, wins, losses, goals scored, and goals conceded
 - Admin commands to update player statistics
 - Real-time status updates
 
 ## Commands
+
+### Game Commands
+
+- `/play`: Start a game
+- `/leaderboard`: Display the leaderboard
 
 ### User Commands
 
@@ -26,6 +32,10 @@ BabyFoot Tracker is a Discord bot designed to manage and track games of table fo
 - `/admin loose id value`: Update the loss count of the player
 - `/admin game id value`: Update the game count of the player
 - `/delete-bdd table`: Delete all data from the specified table (Player or GameHistory)
+
+### Test Commands
+
+- `/creation-player-test`: Creating a player for tests
 
 ## Installation
 
